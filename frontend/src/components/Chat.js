@@ -3,7 +3,7 @@ import io from 'socket.io-client'
 import MessagesList from './MessagesList'
 import '../styles/Chat.css'
 
-const socket = io.connect('http://localhost:3333')
+const socket = io.connect('https://glacial-crag-75504.herokuapp.com/')
 
 function Chat () {
   const [input, setInput] = useState('')

@@ -29,6 +29,9 @@ io.on('connection', function (socket) {
 
 server.listen(port, () => console.log(`Chat app listening on port ${port}!`))
 
+// Serve the static files from the React app
+app.use(require('express').static(path.join(__dirname, 'client/build')));
+
 // Handles any requests
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
