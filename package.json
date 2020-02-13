@@ -18,6 +18,7 @@
   "homepage": "https://github.com/soltex1/Chatify#readme",
   "dependencies": {
     "epxress": "0.0.1-security",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
   }
 }
