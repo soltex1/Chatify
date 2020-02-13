@@ -1,15 +1,35 @@
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 3000
+const app = require('express')()
+const server = require('http').createServer(app)
 const path = require('path')
+const io = require('socket.io')(server)
+const port = process.env.PORT || 3333
+const getHour = require('./utils/Date')
 
+io.on('connection', function (socket) {
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+  //console.log('user connected');
 
-// Serve the static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
+  socket.on('disconnect', function () {
+    //console.log('user disconnected')
+  })
 
-// Handles any requests that don't match the ones above
-app.get('*', (req,res) =>{
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
-});
+  socket.on('message', function (message) {
+    //console.log('message received', message)
+
+    io.emit('message', {
+      id: socket.id,
+      type: 'message',
+      description: message,
+      timestamp: getHour()
+    })
+
+  })
+
+})
+
+server.listen(port, () => console.log(`Chat app listening on port ${port}!`))
+
+// Handles any requests
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
