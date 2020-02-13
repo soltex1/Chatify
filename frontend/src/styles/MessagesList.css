@@ -1,0 +1,16 @@
+.messagesList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.messagesList li {
+    border-radius: 8px;
+    padding: 5px 10px;
+    margin: 10px;
+    height: 100%;
+    overflow: hidden;
+    line-height: 22px;
+    width: 60%;
+    word-wrap: break-word;
+}

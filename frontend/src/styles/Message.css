@@ -1,0 +1,32 @@
+
+
+.own-message-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.other-message-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.own-message {
+    width:100%;
+    background: #eee;
+}
+
+.other-message {
+    width:100%;
+    background: #ffd77d;
+}
+
+ul {
+    overflow: auto;
+    max-height: 78vh;
+    padding: 10px;
+}
+
+.message-hour {
+    text-align:right;
+    color: #a0a0a0;
+}
