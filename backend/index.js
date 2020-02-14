@@ -7,10 +7,22 @@ const getHour = require('./utils/Date')
 
 io.on('connection', function (socket) {
 
-  //console.log('user connected');
+  io.emit('message', {
+    id: socket.id,
+    type: 'event',
+    description: `user ${socket.id} connected...`,
+    timestamp: getHour()
+  })
 
   socket.on('disconnect', function () {
     //console.log('user disconnected')
+    io.emit('message', {
+      id: socket.id,
+      type: 'event',
+      description: `user ${socket.id} disconnected...`,
+      timestamp: getHour()
+    })
+
   })
 
   socket.on('message', function (message) {
@@ -25,12 +37,19 @@ io.on('connection', function (socket) {
 
   })
 
+  socket.on('typing', function (value) {
+    io.emit('typing', {
+      value,
+      id: socket.id
+    })
+  })
+
 })
 
 server.listen(port, () => console.log(`Chat app listening on port ${port}!`))
 
 // Serve the static files from the React app
-app.use(require('express').static(path.join(__dirname, 'client/build')));
+app.use(require('express').static(path.join(__dirname, 'client/build')))
 
 // Handles any requests
 app.get('*', (req, res) => {

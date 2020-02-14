@@ -14,3 +14,7 @@
     width: 60%;
     word-wrap: break-word;
 }
+
+.messagesList-container {
+    height: 85%;
+}

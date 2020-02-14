@@ -3,13 +3,13 @@ import '../styles/Message.css'
 
 function Message ({ message }) {
 
-  const { owner, description, timestamp } = message
+  const { owner, description, type, timestamp } = message
 
-  return <div className={`${owner}-container`}>
-    <li className={owner}>
+  return <div className={`${type === 'event' ? type : owner}-container`}>
+    <li className={type === 'event' ? type : owner}>
       <div>
         {description}
-        <div className={'message-hour'}>{timestamp}</div>
+        {timestamp && <div className={'message-hour'}>{timestamp}</div>}
       </div>
     </li>
   </div>

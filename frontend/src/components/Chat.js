@@ -8,6 +8,9 @@ const socket = io.connect('https://glacial-crag-75504.herokuapp.com/')
 function Chat () {
   const [input, setInput] = useState('')
   const [messages, setMessages] = useState([])
+  const [typing, setTyping] = useState(false)
+  let timeout;
+
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -22,6 +25,7 @@ function Chat () {
   }
 
   useEffect(() => {
+
     socket.on('message', (message) => {
       Object.assign(message, {
         owner: message.id === socket.id
@@ -30,25 +34,43 @@ function Chat () {
       })
       setMessages((oldMessages) => [...oldMessages, message])
     })
+
+    socket.on('typing', (data) => {
+      setTyping(data)
+    })
+
   }, [])
 
+  const handleKeyUp = (event) => {
+    socket.emit('typing', true)
+    clearTimeout(timeout)
+    timeout = setTimeout(timeoutFunction, 2000)
+  }
+
+  const timeoutFunction = () => {
+    socket.emit('typing', false)
+  }
+
+  const showAlert = typing.value && socket.id !== typing.id
+
   return <div className="App">
-    <head>
-      <title>Socket.IO chat</title>
-    </head>
-    <body>
     <div className={'chat-container'}>
       <div className={'chat'}>
         <MessagesList messages={messages}/>
         <div className={'chat-actions'}>
+          <div className={'alerts'}>
+            {showAlert && <p>Somone is typing...</p>}
+          </div>
           <form onSubmit={handleSubmit}>
-            <input onChange={handleInputChange} value={input}/>
+            <input
+              onKeyUp={handleKeyUp}
+              onChange={handleInputChange}
+              value={input}/>
             <button>Send</button>
           </form>
         </div>
       </div>
     </div>
-    </body>
   </div>
 
 }

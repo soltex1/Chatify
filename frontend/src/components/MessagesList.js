@@ -7,17 +7,17 @@ const MessagesList = ({ messages }) => {
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'start' });
+    messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
   }
 
-  useEffect(scrollToBottom, [messages]);
+  useEffect(scrollToBottom, [messages])
 
-  return (
+  return <div className={'messagesList-container'}>
     <ul className={'messagesList'}>
-      {messages.map((message) => <Message message={message} />)}
-      <div ref={messagesEndRef} />
+      {messages.map((message, index) => <Message key={index} message={message}/>)}
+      <div ref={messagesEndRef}/>
     </ul>
-  )
+  </div>
 }
 
 export default MessagesList
