@@ -6,7 +6,7 @@
 <h4 align="center">:speech_balloon: A chat application created with socket.io, react and node.</h4>
 
 <p align="center">
-  <img src="https://i.imgur.com/n1SKEt0.gif">
+  <img src="https://i.imgur.com/p0bUcat.gif">
 </p>
 
 <p align="center">
